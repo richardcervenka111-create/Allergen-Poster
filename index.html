@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B6E4F">
+<title>Allergen-Poster</title>
+<meta name="description" content="Allergen-Deklaration für Restaurants, Take-aways, Food-Trucks und Vereinsfeste: Gerichte eintragen, 14 Allergene ankreuzen, Poster drucken. Nach Schweizer LIV, Anhang 6. Nichts wird gesendet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+:root{
+  --bg:#F3F6F4; --surface:#FFFFFF; --surface-2:#E7EDEA; --line:#C7D3CD;
+  --ink:#121A17; --ink-2:#37483F; --muted:#66786F;
+  --green:#0B6E4F; --green-soft:#DCEFE6; --red:#C8102E; --red-soft:#FBE3E7; --gold:#E3B505; --gold-soft:#FBF1C7;
+  --shadow:0 10px 30px rgba(18,26,23,.10);
+  --body:"Atkinson Hyperlegible","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){color-scheme:dark;
+    --bg:#0E1512; --surface:#171F1B; --surface-2:#1F2A25; --line:#33423B;
+    --ink:#EEF3F0; --ink-2:#C3CFC8; --muted:#8C9C94;
+    --green:#3FBF8F; --green-soft:#153A2C; --red:#E5333F; --red-soft:#3D1A20; --gold:#F2C530; --gold-soft:#3A3212;
+    --shadow:0 10px 30px rgba(0,0,0,.45)}
+}
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#0E1512; --surface:#171F1B; --surface-2:#1F2A25; --line:#33423B;
+  --ink:#EEF3F0; --ink-2:#C3CFC8; --muted:#8C9C94;
+  --green:#3FBF8F; --green-soft:#153A2C; --red:#E5333F; --red-soft:#3D1A20; --gold:#F2C530; --gold-soft:#3A3212;
+  --shadow:0 10px 30px rgba(0,0,0,.45)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 var(--body)}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:16px;padding-block:12px 64px;display:grid;gap:18px}
+h1,h2,h3{margin:0;line-height:1.15;text-wrap:balance}
+h1{font-size:30px;font-weight:700}
+p{margin:0;max-width:66ch}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;font-size:15px;color:var(--muted)}
+.langs{display:flex;gap:4px;background:var(--surface-2);padding:4px;border-radius:999px}
+.langs button{border:0;background:transparent;border-radius:999px;padding:6px 12px;font-weight:700;font-size:14px;color:var(--ink-2)}
+.langs button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.intro{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:10px}
+.intro ol{margin:0;padding-left:22px;display:grid;gap:4px;font-size:16px}
+.note{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:12px 14px;font-size:15px;background:var(--green-soft)}
+.note .dot{flex:none;width:12px;height:12px;border-radius:50%;background:var(--green);margin-top:6px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:20px;align-items:start}
+@media (max-width:1000px){.layout{grid-template-columns:minmax(0,1fr)}}
+
+form{display:grid;gap:14px}
+fieldset{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:14px 16px 16px;margin:0;display:grid;gap:12px;min-width:0}
+legend{font-weight:700;font-size:18px;padding:0 6px}
+legend .hint{font-weight:400;color:var(--muted);font-size:14px}
+.row{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+label.f{display:grid;gap:4px;font-size:14px;color:var(--ink-2);min-width:0}
+label.f span{font-weight:700}
+input[type=text],textarea,select{width:100%;font:inherit;font-size:17px;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-height:46px}
+textarea{min-height:70px;resize:vertical}
+.chk{display:flex;gap:10px;align-items:center;background:var(--surface-2);border-radius:10px;padding:9px 12px;font-size:15px;min-height:44px}
+.chk input{width:20px;height:20px;flex:none;accent-color:var(--green)}
+
+/* dish editor */
+.dishes{display:grid;gap:10px}
+.dish{border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;gap:8px;background:var(--surface)}
+.dish .head{display:grid;grid-template-columns:36px minmax(0,1fr) 44px;gap:8px;align-items:center}
+.dish .no{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:15px}
+.dish .x{height:44px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);font-size:20px;line-height:1;color:var(--ink-2)}
+.agrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+@media (max-width:560px){.agrid{grid-template-columns:repeat(4,1fr)}}
+.ab{display:grid;justify-items:center;gap:2px;border:1px solid var(--line);border-radius:8px;padding:6px 2px;background:var(--surface-2);cursor:pointer;min-height:56px;font-size:11px;line-height:1.1;text-align:center;color:var(--ink-2);user-select:none}
+.ab b{font-size:15px;color:var(--ink)}
+.ab[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.ab[aria-pressed="true"] b{color:#fff}
+.ab input{position:absolute;opacity:0;width:0;height:0}
+.dish .rem{font-size:14px}
+.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:700;font-size:16px;min-height:48px;background:var(--surface-2);color:var(--ink)}
+.btn.primary{background:var(--green);color:#fff;box-shadow:var(--shadow)}
+.btn.ghost{background:transparent;border:2px solid var(--line)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.small{font-size:14px;color:var(--muted)}
+.toggle{display:flex;gap:10px;align-items:center;font-size:15px;color:var(--ink-2)}
+.toggle input{width:20px;height:20px;accent-color:var(--green)}
+details.imp{border:1px dashed var(--line);border-radius:12px;padding:8px 12px}
+details.imp summary{cursor:pointer;font-weight:700;font-size:15px}
+details.imp .body{display:grid;gap:8px;padding-top:8px}
+
+/* poster preview */
+.preview{position:sticky;top:env(safe-area-inset-top,0px);display:grid;gap:10px}
+@media (max-width:1000px){.preview{position:static}}
+.sheetwrap{background:var(--surface-2);border-radius:16px;padding:12px;overflow:auto}
+.poster{--p-ink:#121A17;--p-ink2:#37483F;--p-muted:#66786F;--p-line:#C7D3CD;--p-green:#0B6E4F;--p-red:#C8102E;--p-soft:#F3F6F4;
+  width:210mm;min-height:297mm;background:#fff;color:var(--p-ink);padding:11mm 12mm 10mm;margin:0 auto;display:grid;grid-template-rows:auto 1fr auto;gap:4mm;
+  font:10.5pt/1.3 var(--body);transform-origin:top left;box-shadow:0 6px 24px rgba(0,0,0,.18);position:relative}
+.poster.landscape{width:297mm;min-height:210mm}
+.poster.example::after{content:attr(data-example);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-22deg);font-size:64pt;font-weight:700;color:rgba(11,110,79,.10);pointer-events:none;white-space:nowrap}
+.p-head{display:grid;grid-template-columns:1fr auto;gap:6mm;align-items:end;border-bottom:1.2mm solid var(--p-green);padding-bottom:2.5mm}
+.p-head .t{font-size:20pt;font-weight:700;line-height:1.05}
+.p-head .biz{font-size:12pt;color:var(--p-ink2);margin-top:1mm}
+.p-head .date{font-size:8.5pt;color:var(--p-muted);text-align:right}
+.p-head .date b{display:block;color:var(--p-ink);font-size:10pt}
+.p-body{display:grid;gap:3.5mm;align-content:start}
+table.mx{border-collapse:collapse;width:100%;table-layout:fixed}
+table.mx th,table.mx td{border:.3mm solid var(--p-line);padding:1.4mm 1.5mm;vertical-align:middle}
+table.mx thead th{font-size:8pt;font-weight:700;text-align:center;background:var(--p-soft);width:5.6mm;padding:1.2mm .5mm}
+table.mx thead th:first-child{text-align:left;width:auto;font-size:8.5pt;letter-spacing:.06em;text-transform:uppercase;color:var(--p-muted)}
+table.mx tbody td{text-align:center;font-size:9pt}
+table.mx tbody td:first-child{text-align:left;font-size:10.5pt;font-weight:700;overflow-wrap:anywhere}
+table.mx tbody td:first-child small{display:block;font-weight:400;font-size:8.5pt;color:var(--p-ink2)}
+table.mx td.on{background:var(--p-red);color:#fff;font-weight:700}
+table.mx tbody tr:nth-child(even) td:first-child{background:#FAFBFA}
+table.mx tbody tr{page-break-inside:avoid}
+.legend{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2mm 6mm;font-size:8.6pt}
+.legend div{display:grid;grid-template-columns:5.5mm 1fr;gap:1.5mm;align-items:start}
+.legend b.n{width:5.5mm;height:5.5mm;border-radius:50%;background:var(--p-ink);color:#fff;display:grid;place-items:center;font-size:7.5pt}
+.legend span small{color:var(--p-muted)}
+.p-notice{border-left:1.5mm solid var(--p-green);background:var(--p-soft);padding:2mm 3mm;font-size:9.5pt;display:grid;gap:1mm;border-radius:1mm}
+.p-notice b{font-size:10pt}
+.p-foot{border-top:.3mm solid var(--p-line);padding-top:2mm;font-size:7.8pt;color:var(--p-muted);display:flex;justify-content:space-between;gap:6mm;flex-wrap:wrap}
+.p-empty{color:var(--p-muted);font-style:italic;font-size:10pt}
+
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:700;font-size:15px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+footer.site{font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;display:grid;gap:6px}
+footer.site a{color:var(--ink-2)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff}
+  .wrap>*:not(.layout),.layout>*:not(.preview),.preview>*:not(.sheetwrap),.toast{display:none!important}
+  .wrap{padding:0;max-width:none;display:block}.layout{display:block}.preview{position:static;display:block}
+  .sheetwrap{padding:0;background:#fff;border-radius:0;overflow:visible}
+  .poster{box-shadow:none;margin:0;transform:none!important;min-height:auto;color:#121A17}
+  .poster.example::after{display:none}
+  table.mx thead{display:table-header-group}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><h1>Allergen-Poster</h1><small data-i18n="tagline">Allergen-Deklaration für Take-aways, Beizen, Food-Trucks und Vereinsfeste. Ausfüllen, drucken, aufhängen.</small></div>
+    <div class="langs" role="group" aria-label="Sprache">
+      <button type="button" data-lang="de" aria-pressed="true">DE</button>
+      <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+      <button type="button" data-lang="it" aria-pressed="false">IT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <section class="intro">
+    <p data-i18n="intro_p">In der Schweiz müssen die 14 Zutaten, die am häufigsten Allergien auslösen, auch bei offen angebotenen Speisen deklariert werden (LIV, Anhang 6). Ein Poster mit einer Tabelle erfüllt das schriftlich; wer lieber mündlich informiert, braucht mindestens den gut sichtbaren Hinweis darauf. Beides macht diese Seite.</p>
+    <ol>
+      <li data-i18n="intro_1">Gerichte eintragen, oder die Karte als Liste einfügen.</li>
+      <li data-i18n="intro_2">Pro Gericht die enthaltenen Allergene antippen. Im Zweifel die Rezeptur und die Etiketten der Zutaten prüfen.</li>
+      <li data-i18n="intro_3">Drucken, gut sichtbar aufhängen, bei jeder Änderung der Karte neu drucken.</li>
+    </ol>
+    <div class="note"><span class="dot"></span><span data-i18n="note">Nichts wird gesendet. Die Karte bleibt in deinem Browser, wenn «Auf diesem Gerät merken» an ist. Die Seite ersetzt keine Prüfung durch die Lebensmittelkontrolle; verantwortlich für die Richtigkeit bleibt der Betrieb.</span></div>
+  </section>
+
+  <div class="layout">
+  <form id="f" autocomplete="off">
+    <fieldset>
+      <legend data-i18n="l_biz">Betrieb</legend>
+      <div class="row">
+        <label class="f"><span data-i18n="f_biz">Name des Betriebs</span><input type="text" id="biz" data-k="biz" placeholder="Restaurant Sonne"></label>
+        <label class="f"><span data-i18n="f_title">Titel auf dem Poster</span><input type="text" id="title" data-k="title" data-i18n-ph="ph_title" placeholder="Allergene in unseren Speisen"></label>
+      </div>
+      <div class="row">
+        <label class="f"><span data-i18n="f_contact">Auskunft gibt</span><input type="text" id="contact" data-k="contact" data-i18n-ph="ph_contact" placeholder="Küchenchef Marco Rossi oder das Servicepersonal"></label>
+        <label class="f"><span data-i18n="f_format">Format</span><select id="format" data-k="format"><option value="portrait">A4</option><option value="landscape" data-i18n="opt_land">A4 quer (viele Gerichte)</option></select></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend data-i18n="l_dishes">Gerichte <span class="hint" data-i18n="l_dishes_h">(rot = enthalten)</span></legend>
+      <details class="imp"><summary data-i18n="imp_sum">Karte als Liste einfügen</summary>
+        <div class="body">
+          <textarea id="impText" data-i18n-ph="ph_imp" placeholder="Ein Gericht pro Zeile, z. B.&#10;Rösti mit Spiegelei&#10;Älplermagronen&#10;Tomatensuppe"></textarea>
+          <div class="actions"><button type="button" class="btn ghost" id="impBtn" data-i18n="b_imp">Zeilen als Gerichte übernehmen</button></div>
+        </div>
+      </details>
+      <div class="dishes" id="dishes"></div>
+      <div class="actions"><button type="button" class="btn ghost" id="addDish" data-i18n="b_add">+ Gericht</button></div>
+    </fieldset>
+
+    <fieldset>
+      <legend data-i18n="l_notice">Hinweise auf dem Poster</legend>
+      <label class="chk"><input type="checkbox" id="n_traces" data-k="n_traces" checked><span data-i18n="c_traces">Spuren-Hinweis: In unserer Küche werden alle 14 Allergene verarbeitet, Spuren können nicht ausgeschlossen werden.</span></label>
+      <label class="chk"><input type="checkbox" id="n_oral" data-k="n_oral" checked><span data-i18n="c_oral">Mündliche Auskunft: Unser Personal gibt Ihnen gerne Auskunft über Zutaten und Allergene.</span></label>
+      <label class="chk"><input type="checkbox" id="n_legend" data-k="n_legend" checked><span data-i18n="c_legend">Legende der 14 Allergene mit Beispielen abdrucken</span></label>
+      <label class="chk"><input type="checkbox" id="n_second" data-k="n_second"><span data-i18n="c_second">Legende zusätzlich auf Französisch (zweisprachig, Bern)</span></label>
+      <label class="f"><span data-i18n="f_extra">Eigener Zusatz</span><input type="text" id="extra" data-k="extra" data-i18n-ph="ph_extra" placeholder="Vegane Varianten auf Anfrage."></label>
+    </fieldset>
+
+    <div class="actions">
+      <button type="button" class="btn primary" id="printBtn" data-i18n="b_print">Drucken / als PDF sichern</button>
+      <button type="button" class="btn ghost" id="exampleBtn" data-i18n="b_example">Beispiel ansehen</button>
+      <button type="button" class="btn ghost" id="clearBtn" data-i18n="b_clear">Alles löschen</button>
+    </div>
+    <label class="toggle"><input type="checkbox" id="remember" checked><span data-i18n="t_remember">Auf diesem Gerät merken (nur in diesem Browser)</span></label>
+    <p class="small" data-i18n="print_hint">Im Druckdialog «Kopf- und Fusszeilen» ausschalten. Für A3: im Dialog Skalierung 141 % oder «An Seite anpassen».</p>
+  </form>
+
+  <aside class="preview" aria-label="Vorschau">
+    <div class="eyebrow" data-i18n="prev_eyebrow">Vorschau, so wird es gedruckt</div>
+    <div class="sheetwrap" id="sheetwrap">
+      <article class="poster example" id="poster" data-example="">
+        <header class="p-head">
+          <div><div class="t" id="p_title"></div><div class="biz" id="p_biz"></div></div>
+          <div class="date" id="p_date"></div>
+        </header>
+        <section class="p-body">
+          <div id="p_table"></div>
+          <div class="legend" id="p_legend"></div>
+          <div class="p-notice" id="p_notice"></div>
+        </section>
+        <footer class="p-foot"><span id="p_foot1"></span><span id="p_foot2"></span></footer>
+      </article>
+    </div>
+  </aside>
+  </div>
+
+  <footer class="site">
+    <p data-i18n="site_1">Allergen-Poster ist frei (CC0). Rechtsgrundlage: Verordnung des EDI betreffend die Information über Lebensmittel (LIV), Art. 5 und Anhang 6. Bei Fragen zur Umsetzung hilft das kantonale Lebensmittelinspektorat.</p>
+    <p><a href="https://github.com/richardcervenka111-create/allergen-poster" target="_blank" rel="noopener">GitHub</a> · <a href="https://richardcervenka111-create.github.io/baern-hilft/" target="_blank" rel="noopener">Bärn hilft</a> · <a href="https://richardcervenka111-create.github.io/notfallblatt/" target="_blank" rel="noopener">Notfallblatt</a></p>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+'use strict';
+/* The 14 allergens of LIV Annex 6 (identical to EU Regulation 1169/2011 Annex II), in the legal order. */
+var ALLERGENS = {
+de:[['Glutenhaltiges Getreide','Weizen, Roggen, Gerste, Hafer, Dinkel, Kamut','Gluten'],['Krebstiere','Crevetten, Krebse, Hummer, Langusten','Krebst.'],['Eier','','Eier'],['Fische','','Fisch'],['Erdnüsse','','Erdn.'],['Sojabohnen','Soja, Tofu, Sojasauce','Soja'],['Milch','einschliesslich Laktose','Milch'],['Schalenfrüchte','Mandeln, Haselnüsse, Walnüsse, Cashew, Pecan, Paranüsse, Pistazien, Macadamia','Nüsse'],['Sellerie','','Sellerie'],['Senf','','Senf'],['Sesamsamen','','Sesam'],['Schwefeldioxid und Sulfite','über 10 mg/kg, z. B. Wein, Trockenfrüchte','Sulfite'],['Lupinen','','Lupinen'],['Weichtiere','Muscheln, Tintenfisch, Schnecken','Weicht.']],
+fr:[['Céréales contenant du gluten','blé, seigle, orge, avoine, épeautre, kamut','Gluten'],['Crustacés','crevettes, crabes, homards, langoustes','Crust.'],['Œufs','','Œufs'],['Poissons','','Poisson'],['Arachides','','Arach.'],['Soja','tofu, sauce soja','Soja'],['Lait','y compris le lactose','Lait'],['Fruits à coque','amandes, noisettes, noix, cajou, pécan, noix du Brésil, pistaches, macadamia','Noix'],['Céleri','','Céleri'],['Moutarde','','Moutarde'],['Graines de sésame','','Sésame'],['Anhydride sulfureux et sulfites','plus de 10 mg/kg, p. ex. vin, fruits secs','Sulfites'],['Lupin','','Lupin'],['Mollusques','moules, calamars, escargots','Mollusq.']],
+it:[['Cereali contenenti glutine','frumento, segale, orzo, avena, farro, kamut','Glutine'],['Crostacei','gamberi, granchi, astice, aragosta','Crost.'],['Uova','','Uova'],['Pesce','','Pesce'],['Arachidi','','Arach.'],['Soia','tofu, salsa di soia','Soia'],['Latte','incluso lattosio','Latte'],['Frutta a guscio','mandorle, nocciole, noci, anacardi, pecan, noci del Brasile, pistacchi, macadamia','Noci'],['Sedano','','Sedano'],['Senape','','Senape'],['Semi di sesamo','','Sesamo'],['Anidride solforosa e solfiti','oltre 10 mg/kg, p. es. vino, frutta secca','Solfiti'],['Lupini','','Lupini'],['Molluschi','cozze, calamari, lumache','Mollus.']],
+en:[['Cereals containing gluten','wheat, rye, barley, oats, spelt, kamut','Gluten'],['Crustaceans','prawns, crabs, lobster, crayfish','Crust.'],['Eggs','','Eggs'],['Fish','','Fish'],['Peanuts','','Peanuts'],['Soybeans','tofu, soy sauce','Soy'],['Milk','including lactose','Milk'],['Tree nuts','almonds, hazelnuts, walnuts, cashews, pecans, Brazil nuts, pistachios, macadamia','Nuts'],['Celery','','Celery'],['Mustard','','Mustard'],['Sesame seeds','','Sesame'],['Sulphur dioxide and sulphites','above 10 mg/kg, e.g. wine, dried fruit','Sulphites'],['Lupin','','Lupin'],['Molluscs','mussels, squid, snails','Molluscs']]
+};
+var I18N = {
+de:{tagline:'Allergen-Deklaration für Take-aways, Beizen, Food-Trucks und Vereinsfeste. Ausfüllen, drucken, aufhängen.',
+  intro_p:'In der Schweiz müssen die 14 Zutaten, die am häufigsten Allergien auslösen, auch bei offen angebotenen Speisen deklariert werden (LIV, Anhang 6). Ein Poster mit einer Tabelle erfüllt das schriftlich; wer lieber mündlich informiert, braucht mindestens den gut sichtbaren Hinweis darauf. Beides macht diese Seite.',
+  intro_1:'Gerichte eintragen, oder die Karte als Liste einfügen.', intro_2:'Pro Gericht die enthaltenen Allergene antippen. Im Zweifel die Rezeptur und die Etiketten der Zutaten prüfen.', intro_3:'Drucken, gut sichtbar aufhängen, bei jeder Änderung der Karte neu drucken.',
+  note:'Nichts wird gesendet. Die Karte bleibt in deinem Browser, wenn «Auf diesem Gerät merken» an ist. Die Seite ersetzt keine Prüfung durch die Lebensmittelkontrolle; verantwortlich für die Richtigkeit bleibt der Betrieb.',
+  l_biz:'Betrieb', f_biz:'Name des Betriebs', f_title:'Titel auf dem Poster', ph_title:'Allergene in unseren Speisen', f_contact:'Auskunft gibt', ph_contact:'Küchenchef Marco Rossi oder das Servicepersonal', f_format:'Format', opt_land:'A4 quer (viele Gerichte)',
+  l_dishes:'Gerichte ', l_dishes_h:'(rot = enthalten)', imp_sum:'Karte als Liste einfügen', ph_imp:'Ein Gericht pro Zeile, z. B.\nRösti mit Spiegelei\nÄlplermagronen\nTomatensuppe', b_imp:'Zeilen als Gerichte übernehmen', b_add:'+ Gericht', d_name:'Gericht', d_rem:'Bemerkung (optional)', ph_rem:'auch glutenfrei erhältlich',
+  l_notice:'Hinweise auf dem Poster', c_traces:'Spuren-Hinweis: In unserer Küche werden alle 14 Allergene verarbeitet, Spuren können nicht ausgeschlossen werden.', c_oral:'Mündliche Auskunft: Unser Personal gibt Ihnen gerne Auskunft über Zutaten und Allergene.', c_legend:'Legende der 14 Allergene mit Beispielen abdrucken', c_second:'Legende zusätzlich auf Französisch (zweisprachig, Bern)', f_extra:'Eigener Zusatz', ph_extra:'Vegane Varianten auf Anfrage.',
+  b_print:'Drucken / als PDF sichern', b_example:'Beispiel ansehen', b_clear:'Alles löschen', b_clear_sure:'Wirklich alles löschen? Nochmals tippen.', t_remember:'Auf diesem Gerät merken (nur in diesem Browser)', print_hint:'Im Druckdialog «Kopf- und Fusszeilen» ausschalten. Für A3: im Dialog Skalierung 141 % oder «An Seite anpassen».', prev_eyebrow:'Vorschau, so wird es gedruckt',
+  p_title_default:'Allergene in unseren Speisen', p_date:'Stand', p_example:'BEISPIEL', p_col:'Gericht', p_empty:'Noch keine Gerichte. Links eintragen oder «Beispiel ansehen».',
+  p_traces:'In unserer Küche werden alle 14 deklarationspflichtigen Allergene verarbeitet. Spuren können trotz Sorgfalt nicht ausgeschlossen werden.', p_oral:'Unser Personal gibt Ihnen gerne Auskunft über Zutaten und Allergene.', p_contact:'Auskunft:', p_legend_h:'Die 14 Allergene nach LIV Anhang 6',
+  p_foot1:'Deklaration nach Verordnung des EDI betreffend die Information über Lebensmittel (LIV), Anhang 6.', p_foot2:'Erstellt mit Allergen-Poster (CC0)',
+  site_1:'Allergen-Poster ist frei (CC0). Rechtsgrundlage: Verordnung des EDI betreffend die Information über Lebensmittel (LIV), Art. 5 und Anhang 6. Bei Fragen zur Umsetzung hilft das kantonale Lebensmittelinspektorat.',
+  toast_cleared:'Gelöscht', toast_imp:'Gerichte übernommen: ', second:'fr'},
+fr:{tagline:'Déclaration des allergènes pour take-aways, bistrots, food-trucks et fêtes de sociétés. Remplir, imprimer, afficher.',
+  intro_p:'En Suisse, les 14 ingrédients qui déclenchent le plus souvent des allergies doivent être déclarés aussi pour les mets proposés en vrac (OIDAl, annexe 6). Une affiche avec un tableau remplit l’obligation par écrit ; qui préfère informer oralement doit au moins l’indiquer de manière bien visible. Cette page fait les deux.',
+  intro_1:'Saisir les mets, ou coller la carte sous forme de liste.', intro_2:'Pour chaque mets, cocher les allergènes présents. En cas de doute, vérifier la recette et les étiquettes des ingrédients.', intro_3:'Imprimer, afficher bien en vue, réimprimer à chaque changement de carte.',
+  note:'Rien n’est envoyé. La carte reste dans votre navigateur si « Mémoriser sur cet appareil » est activé. La page ne remplace pas le contrôle des denrées alimentaires ; l’établissement reste responsable de l’exactitude.',
+  l_biz:'Établissement', f_biz:'Nom de l’établissement', f_title:'Titre sur l’affiche', ph_title:'Allergènes dans nos mets', f_contact:'Renseignements auprès de', ph_contact:'Chef Marco Rossi ou le personnel de service', f_format:'Format', opt_land:'A4 paysage (beaucoup de mets)',
+  l_dishes:'Mets ', l_dishes_h:'(rouge = contient)', imp_sum:'Coller la carte sous forme de liste', ph_imp:'Un mets par ligne, p. ex.\nRösti à l’œuf\nÄlplermagronen\nSoupe de tomates', b_imp:'Reprendre les lignes comme mets', b_add:'+ Mets', d_name:'Mets', d_rem:'Remarque (facultatif)', ph_rem:'aussi disponible sans gluten',
+  l_notice:'Mentions sur l’affiche', c_traces:'Mention traces : notre cuisine travaille avec les 14 allergènes, des traces ne peuvent être exclues.', c_oral:'Information orale : notre personnel vous renseigne volontiers sur les ingrédients et allergènes.', c_legend:'Imprimer la légende des 14 allergènes avec exemples', c_second:'Légende aussi en allemand (bilingue, Berne)', f_extra:'Ajout personnel', ph_extra:'Variantes véganes sur demande.',
+  b_print:'Imprimer / enregistrer en PDF', b_example:'Voir un exemple', b_clear:'Tout effacer', b_clear_sure:'Vraiment tout effacer ? Touchez encore une fois.', t_remember:'Mémoriser sur cet appareil (uniquement dans ce navigateur)', print_hint:'Dans la boîte d’impression, désactiver « en-têtes et pieds de page ». Pour A3 : échelle 141 % ou « Ajuster à la page ».', prev_eyebrow:'Aperçu, tel qu’il sera imprimé',
+  p_title_default:'Allergènes dans nos mets', p_date:'État au', p_example:'EXEMPLE', p_col:'Mets', p_empty:'Pas encore de mets. Saisir à gauche ou « Voir un exemple ».',
+  p_traces:'Notre cuisine travaille avec les 14 allergènes soumis à déclaration. Malgré tout le soin apporté, des traces ne peuvent être exclues.', p_oral:'Notre personnel vous renseigne volontiers sur les ingrédients et les allergènes.', p_contact:'Renseignements :', p_legend_h:'Les 14 allergènes selon l’OIDAl, annexe 6',
+  p_foot1:'Déclaration selon l’ordonnance du DFI concernant l’information sur les denrées alimentaires (OIDAl), annexe 6.', p_foot2:'Créé avec Allergen-Poster (CC0)',
+  site_1:'Allergen-Poster est libre (CC0). Base légale : ordonnance du DFI concernant l’information sur les denrées alimentaires (OIDAl), art. 5 et annexe 6. L’inspectorat cantonal des denrées alimentaires répond aux questions de mise en œuvre.',
+  toast_cleared:'Effacé', toast_imp:'Mets repris : ', second:'de'},
+it:{tagline:'Dichiarazione degli allergeni per take-away, ristoranti, food-truck e feste di società. Compilare, stampare, appendere.',
+  intro_p:'In Svizzera i 14 ingredienti che più spesso provocano allergie devono essere dichiarati anche per i cibi offerti sfusi (OID, allegato 6). Un poster con una tabella adempie l’obbligo per iscritto; chi preferisce informare a voce deve almeno indicarlo in modo ben visibile. Questa pagina fa entrambe le cose.',
+  intro_1:'Inserire i piatti, oppure incollare il menu come elenco.', intro_2:'Per ogni piatto spuntare gli allergeni presenti. In caso di dubbio verificare la ricetta e le etichette degli ingredienti.', intro_3:'Stampare, appendere ben visibile, ristampare a ogni cambio di menu.',
+  note:'Nulla viene inviato. Il menu resta nel browser se «Ricorda su questo dispositivo» è attivo. La pagina non sostituisce il controllo delle derrate alimentari; l’esercizio resta responsabile della correttezza.',
+  l_biz:'Esercizio', f_biz:'Nome dell’esercizio', f_title:'Titolo sul poster', ph_title:'Allergeni nei nostri piatti', f_contact:'Informazioni da', ph_contact:'Chef Marco Rossi o il personale di servizio', f_format:'Formato', opt_land:'A4 orizzontale (molti piatti)',
+  l_dishes:'Piatti ', l_dishes_h:'(rosso = contiene)', imp_sum:'Incollare il menu come elenco', ph_imp:'Un piatto per riga, p. es.\nRösti con uovo\nÄlplermagronen\nZuppa di pomodoro', b_imp:'Usare le righe come piatti', b_add:'+ Piatto', d_name:'Piatto', d_rem:'Nota (facoltativa)', ph_rem:'disponibile anche senza glutine',
+  l_notice:'Indicazioni sul poster', c_traces:'Nota tracce: nella nostra cucina si lavorano tutti i 14 allergeni, non si possono escludere tracce.', c_oral:'Informazione orale: il nostro personale vi informa volentieri su ingredienti e allergeni.', c_legend:'Stampare la legenda dei 14 allergeni con esempi', c_second:'Legenda anche in tedesco (bilingue, Berna)', f_extra:'Aggiunta personale', ph_extra:'Varianti vegane su richiesta.',
+  b_print:'Stampa / salva come PDF', b_example:'Vedi un esempio', b_clear:'Cancella tutto', b_clear_sure:'Cancellare davvero tutto? Tocca di nuovo.', t_remember:'Ricorda su questo dispositivo (solo in questo browser)', print_hint:'Nella finestra di stampa disattivare «intestazioni e piè di pagina». Per A3: scala 141 % o «Adatta alla pagina».', prev_eyebrow:'Anteprima, così verrà stampato',
+  p_title_default:'Allergeni nei nostri piatti', p_date:'Stato al', p_example:'ESEMPIO', p_col:'Piatto', p_empty:'Ancora nessun piatto. Inserire a sinistra o «Vedi un esempio».',
+  p_traces:'Nella nostra cucina si lavorano tutti i 14 allergeni soggetti a dichiarazione. Nonostante la cura, non si possono escludere tracce.', p_oral:'Il nostro personale vi informa volentieri su ingredienti e allergeni.', p_contact:'Informazioni:', p_legend_h:'I 14 allergeni secondo l’OID, allegato 6',
+  p_foot1:'Dichiarazione secondo l’ordinanza del DFI concernente le informazioni sulle derrate alimentari (OID), allegato 6.', p_foot2:'Creato con Allergen-Poster (CC0)',
+  site_1:'Allergen-Poster è libero (CC0). Base legale: ordinanza del DFI concernente le informazioni sulle derrate alimentari (OID), art. 5 e allegato 6. Per l’attuazione aiuta l’ispettorato cantonale delle derrate alimentari.',
+  toast_cleared:'Cancellato', toast_imp:'Piatti inseriti: ', second:'de'},
+en:{tagline:'Allergen declaration for take-aways, pubs, food trucks and club events. Fill in, print, put up.',
+  intro_p:'In Switzerland the 14 ingredients that most often trigger allergies must be declared even for food sold loose (LIV, Annex 6). A poster with a table meets this in writing; if you prefer to inform verbally, you need at least a clearly visible note saying so. This page does both.',
+  intro_1:'Enter dishes, or paste the menu as a list.', intro_2:'Tap the allergens each dish contains. When in doubt, check the recipe and the ingredient labels.', intro_3:'Print, put it up where guests see it, reprint whenever the menu changes.',
+  note:'Nothing is sent. The menu stays in your browser when “Remember on this device” is on. The page does not replace an inspection by the food authority; the business remains responsible for accuracy.',
+  l_biz:'Business', f_biz:'Business name', f_title:'Title on the poster', ph_title:'Allergens in our dishes', f_contact:'Information from', ph_contact:'Head chef Marco Rossi or the service staff', f_format:'Format', opt_land:'A4 landscape (many dishes)',
+  l_dishes:'Dishes ', l_dishes_h:'(red = contains)', imp_sum:'Paste the menu as a list', ph_imp:'One dish per line, e.g.\nRösti with fried egg\nÄlplermagronen\nTomato soup', b_imp:'Use lines as dishes', b_add:'+ Dish', d_name:'Dish', d_rem:'Remark (optional)', ph_rem:'also available gluten-free',
+  l_notice:'Notes on the poster', c_traces:'Traces note: our kitchen handles all 14 allergens, traces cannot be ruled out.', c_oral:'Verbal information: our staff will gladly inform you about ingredients and allergens.', c_legend:'Print the legend of the 14 allergens with examples', c_second:'Legend also in German (bilingual, Bern)', f_extra:'Your own note', ph_extra:'Vegan options on request.',
+  b_print:'Print / save as PDF', b_example:'See an example', b_clear:'Clear everything', b_clear_sure:'Really clear everything? Tap again.', t_remember:'Remember on this device (this browser only)', print_hint:'In the print dialog switch off “headers and footers”. For A3: scale 141 % or “fit to page”.', prev_eyebrow:'Preview, exactly as printed',
+  p_title_default:'Allergens in our dishes', p_date:'As of', p_example:'EXAMPLE', p_col:'Dish', p_empty:'No dishes yet. Enter on the left or “See an example”.',
+  p_traces:'Our kitchen handles all 14 allergens subject to declaration. Despite all care, traces cannot be ruled out.', p_oral:'Our staff will gladly inform you about ingredients and allergens.', p_contact:'Information:', p_legend_h:'The 14 allergens under LIV Annex 6',
+  p_foot1:'Declaration under the FDHA Ordinance on Food Information (LIV), Annex 6.', p_foot2:'Made with Allergen-Poster (CC0)',
+  site_1:'Allergen-Poster is free (CC0). Legal basis: FDHA Ordinance on Food Information (LIV), Art. 5 and Annex 6. The cantonal food inspectorate answers questions on implementation.',
+  toast_cleared:'Cleared', toast_imp:'Dishes added: ', second:'de'}
+};
+var EXAMPLE = {biz:'Restaurant Sonne, Bern', title:'', contact:'Küchenchef Marco Rossi', format:'portrait', n_traces:true, n_oral:true, n_legend:true, n_second:true, extra:'Vegane Varianten auf Anfrage.',
+  dishes:[['Rösti mit Spiegelei',[3,7],''],['Älplermagronen',[1,7],'auch glutenfrei erhältlich'],['Tomatensuppe mit Brot',[1,7,9],''],['Zürcher Geschnetzeltes',[1,7,12],'Weisswein in der Sauce'],['Egli-Knusperli mit Tartare',[1,3,4,7,10],''],['Grüner Salat mit Dressing',[10,12],''],['Nussgipfel',[1,3,7,8],''],['Schoggimousse',[3,7],'']]};
+
+var $ = function(id){ return document.getElementById(id); };
+var el = function(tag, cls, text){ var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; };
+var lang='de';
+try { var savedLang=localStorage.getItem('ap_lang'); if (savedLang && I18N[savedLang]) lang=savedLang; } catch(e){}
+if (!savedLang) { var nav=(navigator.language||'de').slice(0,2).toLowerCase(); if (I18N[nav]) lang=nav; }
+function t(k){ return I18N[lang][k]; }
+
+var remember = true;
+try { remember = localStorage.getItem('ap_remember') !== '0'; } catch(e){}
+var state = {biz:'', title:'', contact:'', format:'portrait', n_traces:true, n_oral:true, n_legend:true, n_second:false, extra:'', dishes:[['',[],''],['',[],''],['',[],'']]};
+var showExample=false;
+function load(){ if(!remember) return; try{ var raw=localStorage.getItem('ap_state'); if(raw){ var s=JSON.parse(raw); Object.keys(state).forEach(function(k){ if(s[k]!==undefined) state[k]=s[k]; }); } }catch(e){} }
+function save(){ if(!remember) return; try{ localStorage.setItem('ap_state', JSON.stringify(state)); }catch(e){} }
+function isEmpty(){ return !state.biz && !state.title && state.dishes.every(function(d){ return !d[0] && !d[1].length; }); }
+function changed(){ showExample=false; save(); renderPoster(); }
+
+/* ---- dishes editor ---- */
+function buildDishes(){
+  var box=$('dishes'); box.textContent='';
+  state.dishes.forEach(function(d, i){
+    var card=el('div','dish');
+    var head=el('div','head'); head.appendChild(el('div','no', String(i+1)));
+    var inp=document.createElement('input'); inp.type='text'; inp.value=d[0]; inp.id='dish_'+i; inp.placeholder=t('d_name'); inp.setAttribute('aria-label', t('d_name'));
+    inp.addEventListener('input', function(){ d[0]=inp.value; changed(); }); head.appendChild(inp);
+    var x=el('button','x','×'); x.type='button'; x.setAttribute('aria-label','entfernen'); x.addEventListener('click', function(){ state.dishes.splice(i,1); if(!state.dishes.length) state.dishes.push(['',[],'']); buildDishes(); changed(); }); head.appendChild(x);
+    card.appendChild(head);
+    var grid=el('div','agrid');
+    ALLERGENS[lang].forEach(function(a, ai){
+      var n=ai+1; var b=el('label','ab'); b.setAttribute('aria-pressed', String(d[1].indexOf(n)>=0)); b.title=a[0];
+      var c=document.createElement('input'); c.type='checkbox'; c.checked=d[1].indexOf(n)>=0; c.id='a_'+i+'_'+n;
+      c.addEventListener('change', function(){ var k=d[1].indexOf(n); if(c.checked&&k<0) d[1].push(n); if(!c.checked&&k>=0) d[1].splice(k,1); d[1].sort(function(p,q){return p-q;}); b.setAttribute('aria-pressed', String(c.checked)); changed(); });
+      b.appendChild(c); b.appendChild(el('b',null,String(n))); b.appendChild(el('span',null,a[2])); grid.appendChild(b);
+    });
+    card.appendChild(grid);
+    var rem=document.createElement('input'); rem.type='text'; rem.className='rem'; rem.value=d[2]; rem.placeholder=t('d_rem')+' · '+t('ph_rem'); rem.id='rem_'+i; rem.setAttribute('aria-label', t('d_rem'));
+    rem.addEventListener('input', function(){ d[2]=rem.value; changed(); }); card.appendChild(rem);
+    box.appendChild(card);
+  });
+}
+$('addDish').addEventListener('click', function(){ state.dishes.push(['',[],'']); buildDishes(); var last=$('dish_'+(state.dishes.length-1)); if(last) last.focus(); });
+$('impBtn').addEventListener('click', function(){
+  var lines=$('impText').value.split(/\r?\n/).map(function(l){ return l.replace(/^\s*[-•*\d.)]+\s*/,'').trim(); }).filter(Boolean);
+  if(!lines.length) return;
+  state.dishes = state.dishes.filter(function(d){ return d[0] || d[1].length; });
+  lines.forEach(function(l){ state.dishes.push([l.slice(0,80),[],'']); });
+  $('impText').value=''; buildDishes(); changed(); toast(t('toast_imp')+lines.length);
+});
+
+/* ---- simple fields ---- */
+var TEXT=['biz','title','contact','extra'], CHECK=['n_traces','n_oral','n_legend','n_second'];
+function bind(){
+  TEXT.forEach(function(k){ var i=$(k); i.value=state[k]; i.addEventListener('input', function(){ state[k]=i.value; changed(); }); });
+  CHECK.forEach(function(k){ var c=$(k); c.checked=!!state[k]; c.addEventListener('change', function(){ state[k]=c.checked; changed(); }); });
+  $('format').value=state.format; $('format').addEventListener('change', function(){ state.format=$('format').value; changed(); scaleSheet(); });
+}
+function syncForm(){ TEXT.forEach(function(k){ $(k).value=state[k]; }); CHECK.forEach(function(k){ $(k).checked=!!state[k]; }); $('format').value=state.format; buildDishes(); }
+
+/* ---- poster ---- */
+function fmtDate(d){ return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear(); }
+function renderPoster(){
+  var s=state, ex=false; if(isEmpty()||showExample){ s=EXAMPLE; ex=true; }
+  var p=$('poster'); p.classList.toggle('example', ex); p.setAttribute('data-example', t('p_example')); p.classList.toggle('landscape', s.format==='landscape');
+  $('p_title').textContent = s.title || t('p_title_default'); $('p_biz').textContent = s.biz || '';
+  var d=$('p_date'); d.textContent=''; d.appendChild(document.createTextNode(t('p_date'))); d.appendChild(el('b',null,fmtDate(new Date())));
+  var A=ALLERGENS[lang];
+  var tb=$('p_table'); tb.textContent='';
+  var dishes=(s.dishes||[]).filter(function(x){ return x[0]; });
+  if(!dishes.length){ tb.appendChild(el('p','p-empty', t('p_empty'))); }
+  else{
+    var table=el('table','mx'); var thead=el('thead'); var tr=el('tr'); tr.appendChild(el('th',null,t('p_col')));
+    A.forEach(function(a,i){ var th=el('th',null,String(i+1)); th.title=a[0]; tr.appendChild(th); }); thead.appendChild(tr); table.appendChild(thead);
+    var tbody=el('tbody');
+    dishes.forEach(function(x){ var r=el('tr'); var td=el('td'); td.appendChild(document.createTextNode(x[0])); if(x[2]) td.appendChild(el('small',null,x[2])); r.appendChild(td);
+      A.forEach(function(a,i){ var on=x[1].indexOf(i+1)>=0; var c=el('td', on?'on':'', on?String(i+1):''); r.appendChild(c); }); tbody.appendChild(r); });
+    table.appendChild(tbody); tb.appendChild(table);
+  }
+  var lg=$('p_legend'); lg.textContent=''; lg.hidden=!s.n_legend;
+  if(s.n_legend){
+    var second = s.n_second ? ALLERGENS[t('second')] : null;
+    A.forEach(function(a,i){ var row=el('div'); row.appendChild(el('b','n',String(i+1))); var sp=el('span'); sp.appendChild(el('b',null,a[0])); if(a[1]){ sp.appendChild(document.createTextNode(' ')); sp.appendChild(el('small',null,a[1])); }
+      if(second){ sp.appendChild(document.createTextNode(' · ')); sp.appendChild(el('span',null, second[i][0])); }
+      row.appendChild(sp); lg.appendChild(row); });
+  }
+  var no=$('p_notice'); no.textContent='';
+  if(s.n_traces) no.appendChild(el('div',null,t('p_traces')));
+  if(s.n_oral){ var o=el('div'); o.appendChild(el('b',null,t('p_oral'))); if(s.contact){ o.appendChild(document.createTextNode(' '+t('p_contact')+' '+s.contact)); } no.appendChild(o); }
+  if(s.extra) no.appendChild(el('div',null,s.extra));
+  no.hidden=!no.children.length;
+  $('p_foot1').textContent=t('p_foot1'); $('p_foot2').textContent=t('p_foot2');
+  scaleSheet();
+}
+function scaleSheet(){ var wrap=$('sheetwrap'), sh=$('poster'); sh.style.transform='none'; var avail=wrap.clientWidth-24, full=sh.offsetWidth; var k=Math.min(1, avail/full); sh.style.transform='scale('+k+')'; wrap.style.height=(sh.offsetHeight*k+24)+'px'; }
+window.addEventListener('resize', scaleSheet);
+
+/* ---- i18n & actions ---- */
+function renderUI(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(n){ var v=t(n.getAttribute('data-i18n')); if(typeof v==='string') n.textContent=v; });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(n){ var v=t(n.getAttribute('data-i18n-ph')); if(typeof v==='string') n.placeholder=v; });
+  document.querySelectorAll('.langs button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-lang')===lang)); });
+  buildDishes(); renderPoster();
+}
+document.querySelectorAll('.langs button').forEach(function(b){ b.addEventListener('click', function(){ lang=b.getAttribute('data-lang'); try{ localStorage.setItem('ap_lang',lang);}catch(e){} renderUI(); }); });
+var toastTimer; function toast(m){ var tt=$('toast'); tt.textContent=m; tt.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(function(){ tt.classList.remove('show'); },1800); }
+$('printBtn').addEventListener('click', function(){ window.print(); });
+$('exampleBtn').addEventListener('click', function(){ showExample=!showExample; renderPoster(); });
+var clearArmed=false, clearTimer;
+$('clearBtn').addEventListener('click', function(){
+  if(!clearArmed){ clearArmed=true; $('clearBtn').textContent=t('b_clear_sure'); clearTimer=setTimeout(function(){ clearArmed=false; $('clearBtn').textContent=t('b_clear'); },4000); return; }
+  clearTimeout(clearTimer); clearArmed=false; $('clearBtn').textContent=t('b_clear');
+  state={biz:'', title:'', contact:'', format:'portrait', n_traces:true, n_oral:true, n_legend:true, n_second:false, extra:'', dishes:[['',[],''],['',[],''],['',[],'']]}; showExample=false;
+  try{ localStorage.removeItem('ap_state'); }catch(e){}
+  syncForm(); renderPoster(); toast(t('toast_cleared'));
+});
+$('remember').checked=remember;
+$('remember').addEventListener('change', function(){ remember=$('remember').checked; try{ localStorage.setItem('ap_remember', remember?'1':'0'); if(!remember) localStorage.removeItem('ap_state'); else save(); }catch(e){} });
+
+load(); bind(); renderUI();
+})();
+</script>
+</body>
+</html>
